@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type { Task } from "../../components/TaskCard";
 
 // Базовый RTK Query API slice для задач
 export const tasksApi = createApi({
@@ -11,9 +12,8 @@ export const tasksApi = createApi({
 
   endpoints: (builder) => ({
     // Получение списка задач
-    getTasks: builder.query({
-      query: () => "/tasks",
-      providesTags: ["Task"],
+    getTasks: builder.query<Task[], void>({
+      query: () => "tasks",
     }),
     // Создание новой задачи
     createTask: builder.mutation({
