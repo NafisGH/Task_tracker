@@ -16,7 +16,7 @@ async function getTaskById(id) {
 async function createTask({ title, description, status, deadline }) {
   const result = await pool.query(
     "INSERT INTO tasks (title, description, status, deadline) VALUES ($1, $2, $3, $4) RETURNING *",
-    [title, description, status, deadline]
+    [title, description, "open", deadline || null]
   );
   return result.rows[0];
 }

@@ -14,6 +14,7 @@ export const tasksApi = createApi({
     // Получение списка задач
     getTasks: builder.query<Task[], void>({
       query: () => "tasks",
+      providesTags: ["Task"],
     }),
     // Создание новой задачи
     createTask: builder.mutation({
@@ -34,7 +35,7 @@ export const tasksApi = createApi({
       invalidatesTags: ["Task"], // обновляем кэш после обновления
     }),
     // Удаление задачи
-    deleteTask: builder.mutation({
+    deleteTask: builder.mutation<{ success: boolean; id: number }, number>({
       query: (id) => ({
         url: `/tasks/${id}`,
         method: "DELETE",
