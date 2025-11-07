@@ -5,7 +5,7 @@ import type { Task } from "../components/TaskCard";
 
 export default function TasksPage() {
   const { data: tasks, isLoading, error } = useGetTasksQuery();
-  console.log(tasks);
+  // console.log(tasks);
 
   if (isLoading) {
     return <p>Загрузка...</p>;

@@ -16,7 +16,7 @@ export function TaskCard({ task }: { task: Task }) {
       deleteTask(task.id);
     }
   };
-  console.log("TaskCard", task);
+  // console.log("TaskCard", task);
   return (
     <div className="border p-4 rounded shadow-sm flex flex-col gap-1 bg-white">
       <h3 className="text-xl font-bold">{task.title}</h3>
