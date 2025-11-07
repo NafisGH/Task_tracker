@@ -15,7 +15,7 @@ export default function TasksPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4">
+    <div className="max-w-4xl mx-auto px-4 mt-10">
       <h1 className="text-2xl font-bold mb-4">📋 Список задач</h1>
 
       <TaskForm />

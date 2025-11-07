@@ -32,7 +32,7 @@ export function TaskForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-4 rounded shadow flex flex-col gap-4"
+      className="bg-white p-4 shadow flex flex-col gap-2"
     >
       <h2 className="text-lg font-semibold">Добавить новую задачу</h2>
 
@@ -70,7 +70,8 @@ export function TaskForm() {
 
       {/* Кнопка отправки */}
       <button
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        // className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        className="bg-blue-500 text-white p-2 rounded hover:bg-blue-700 transition-colors duration-300"
         type="submit"
         disabled={isLoading}
       >
