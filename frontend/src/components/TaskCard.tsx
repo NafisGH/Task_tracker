@@ -22,7 +22,13 @@ export function TaskCard({ task }: { task: Task }) {
     <div className="border p-4 rounded-xl shadow-sm flex flex-col gap-1 bg-white">
       <h3 className="text-xl font-bold">{task.title}</h3>
       <p className="text-gray-600">{task.description}</p>
-      <p className="text-sm">
+      <p
+        className={`text-sm ${
+          new Date(task.deadline) < new Date()
+            ? "text-red-600 font-semibold"
+            : ""
+        }`}
+      >
         📅 {new Date(task.deadline).toLocaleDateString()}
       </p>
       <p className="text-sm font-semibold">Status: {task.status}</p>
