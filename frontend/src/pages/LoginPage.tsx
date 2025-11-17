@@ -1,0 +1,50 @@
+import { useState } from "react";
+
+export default function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const res = await fetch("http://localhost:4000/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      localStorage.setItem("token", data.token);
+      alert("Успешный вход!");
+    } else {
+      alert(data.message || "Ошибка входа");
+    }
+  };
+
+  return (
+    <form
+      onSubmit={handleLogin}
+      className="max-w-md mx-auto mt-10 flex flex-col gap-4 bg-white p-6 shadow"
+    >
+      <input
+        type="text"
+        placeholder="Имя пользователя"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        className="border p-2 rounded"
+      />
+      <input
+        type="password"
+        placeholder="Пароль"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="border p-2 rounded"
+      />
+      <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+        Войти
+      </button>
+    </form>
+  );
+}
