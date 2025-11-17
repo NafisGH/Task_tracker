@@ -19,7 +19,7 @@ export function TaskCard({ task }: { task: Task }) {
   };
 
   return (
-    <div className="border p-4 rounded shadow-sm flex flex-col gap-1 bg-white">
+    <div className="border p-4 rounded-xl shadow-sm flex flex-col gap-1 bg-white">
       <h3 className="text-xl font-bold">{task.title}</h3>
       <p className="text-gray-600">{task.description}</p>
       <p className="text-sm">
@@ -27,7 +27,8 @@ export function TaskCard({ task }: { task: Task }) {
       </p>
       <p className="text-sm font-semibold">Status: {task.status}</p>
       <button
-        className="mt-2 text-sm text-red-600 hover:underline"
+        // className="mt-2 text-sm text-red-600 hover:underline text-left"
+        className="w-1/3 px-4 py-1 border border-red-500 rounded-lg hover:bg-red-50 text-left"
         onClick={handleDelete}
         disabled={isLoading}
       >
@@ -35,7 +36,7 @@ export function TaskCard({ task }: { task: Task }) {
       </button>
       <Link
         to={`/edit/${task.id}`}
-        className="text-sm text-blue-600 hover:underline"
+        className="w-1/3 px-4 py-1 border border-red-500 rounded-lg hover:bg-red-50"
       >
         ✏️ Edit task
       </Link>

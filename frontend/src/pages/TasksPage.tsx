@@ -23,7 +23,7 @@ export default function TasksPage() {
       <h1 className="text-2xl font-bold mb-4">📋 Task list</h1>
 
       <TaskForm />
-      <div className="mb-4">
+      <div className="mt-5">
         <label className="mr-2 font-medium">Filter by status:</label>
         <select
           className="border p-2 rounded"

@@ -34,6 +34,8 @@ export function TaskForm() {
     e.preventDefault();
 
     if (!task.title.trim()) return alert("Name required");
+    if (!task.description.trim()) return alert("description required");
+    if (!task.deadline.trim()) return alert("deadline required");
 
     if (isEdit) {
       console.log("task", task);
@@ -102,6 +104,7 @@ export function TaskForm() {
         value={task.status}
         onChange={(e) => setTask({ ...task, status: e.target.value })}
       >
+        <option value=""></option>
         <option value="open">open</option>
         <option value="in_progress">in progress</option>
         <option value="done">done</option>
