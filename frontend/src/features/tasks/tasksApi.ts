@@ -16,6 +16,11 @@ export const tasksApi = createApi({
       query: () => "tasks",
       providesTags: ["Task"],
     }),
+    // Получение задачи по ID
+    getTaskById: builder.query<Task, string>({
+      query: (id) => `tasks/${id}`,
+      providesTags: ["Task"],
+    }),
     // Создание новой задачи
     createTask: builder.mutation({
       query: (newTask) => ({
@@ -47,6 +52,7 @@ export const tasksApi = createApi({
 // Экспортируем хуки для использования в компонентах
 export const {
   useGetTasksQuery,
+  useGetTaskByIdQuery,
   useCreateTaskMutation,
   useUpdateTaskMutation,
   useDeleteTaskMutation,

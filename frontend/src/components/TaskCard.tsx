@@ -1,4 +1,5 @@
 import { useDeleteTaskMutation } from "../features/tasks/tasksApi";
+import { Link } from "react-router-dom";
 
 export type Task = {
   id: number;
@@ -16,7 +17,7 @@ export function TaskCard({ task }: { task: Task }) {
       deleteTask(task.id);
     }
   };
-  // console.log("TaskCard", task);
+
   return (
     <div className="border p-4 rounded shadow-sm flex flex-col gap-1 bg-white">
       <h3 className="text-xl font-bold">{task.title}</h3>
@@ -32,6 +33,12 @@ export function TaskCard({ task }: { task: Task }) {
       >
         Удалить
       </button>
+      <Link
+        to={`/edit/${task.id}`}
+        className="text-sm text-blue-600 hover:underline"
+      >
+        ✏️ Редактировать
+      </Link>
     </div>
   );
 }
