@@ -13,7 +13,7 @@ export function TaskCard({ task }: { task: Task }) {
   const [deleteTask, { isLoading }] = useDeleteTaskMutation();
 
   const handleDelete = () => {
-    if (confirm("Вы уверены, что хотите удалить эту задачу?")) {
+    if (confirm("Delete this task?")) {
       deleteTask(task.id);
     }
   };

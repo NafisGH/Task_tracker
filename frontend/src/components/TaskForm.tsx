@@ -13,7 +13,7 @@ export function TaskForm() {
     title: "",
     description: "",
     deadline: "",
-    status: "открыта",
+    status: "",
     id: 0, // временно, если создаём новую задачу
   });
 
@@ -33,7 +33,7 @@ export function TaskForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!task.title.trim()) return alert("Название обязательно");
+    if (!task.title.trim()) return alert("Name required");
 
     if (isEdit) {
       console.log("task", task);
@@ -44,7 +44,7 @@ export function TaskForm() {
         title: "",
         description: "",
         deadline: "",
-        status: "open",
+        status: "",
         id: 0,
       });
     }
@@ -70,21 +70,21 @@ export function TaskForm() {
       className="bg-white p-4 shadow flex flex-col gap-2"
     >
       <h2 className="text-lg font-semibold">
-        {isEdit ? "Редактировать задачу" : "Добавить новую задачу"}
+        {isEdit ? "Edit Task" : "Add New Task"}
       </h2>
 
       {/* Поле заголовка */}
       <input
         className="border p-2 rounded"
         type="text"
-        placeholder="Заголовок"
+        placeholder="heading"
         value={task.title}
         onChange={(e) => setTask({ ...task, title: e.target.value })}
       />
       {/* Поле описания */}
       <textarea
         className="border p-2 rounded"
-        placeholder="Описание"
+        placeholder="description"
         value={task.description}
         onChange={(e) => setTask({ ...task, description: e.target.value })}
       />
@@ -95,16 +95,16 @@ export function TaskForm() {
         value={task.deadline}
         onChange={(e) => setTask({ ...task, deadline: e.target.value })}
       />
-
-      <label className="text-sm font-medium">Статус задачи:</label>
+      {/* Поле Статус */}
+      <label className="text-sm font-medium">Status task:</label>
       <select
         className="border p-2 rounded"
         value={task.status}
         onChange={(e) => setTask({ ...task, status: e.target.value })}
       >
-        <option value="open">Открыта</option>
-        <option value="in_progress">В процессе</option>
-        <option value="done">Завершена</option>
+        <option value="open">open</option>
+        <option value="in_progress">in progress</option>
+        <option value="done">done</option>
       </select>
 
       {/* Кнопка отправки */}
@@ -115,11 +115,11 @@ export function TaskForm() {
       >
         {isLoading
           ? isEdit
-            ? "Сохраняем..."
-            : "Создаем..."
+            ? "Save..."
+            : "Create..."
           : isEdit
-          ? "Сохраняем изменения"
-          : "Создать задачу"}
+          ? "Saving changes"
+          : "New Task"}
       </button>
     </form>
   );
