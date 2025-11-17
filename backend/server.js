@@ -10,7 +10,10 @@ app.use(express.json());
 
 // Маршруты
 const taskRoutes = require("./controllers/taskController");
+const authRoutes = require("./routes/auth");
+
 app.use("/api/tasks", taskRoutes);
+app.use("/api/auth", authRoutes);
 
 // Базовый маршрут для проверки сервера
 app.get("/", (req, res) => {
