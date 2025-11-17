@@ -1,11 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const taskService = require("../services/taskService");
+const authMiddleware = require("../middleware/authMiddleware");
+
+router.use(authMiddleware);
 
 // Получить все задачи
 router.get("/", async (req, res) => {
   try {
-    const tasks = await taskService.getAllTasks();
+    const tasks = await taskService.getAllTasks(req.user.id);
     res.json(tasks);
   } catch (error) {
     console.error("Error fetching tasks:", error);
@@ -16,7 +19,7 @@ router.get("/", async (req, res) => {
 // Получить задачу по ID
 router.get("/:id", async (req, res) => {
   try {
-    const task = await taskService.getTaskById(req.params.id);
+    const task = await taskService.getTaskById(req.params.id, req.user.id);
     if (!task) return res.status(404).json({ error: "Задача не найдена" });
     res.json(task);
   } catch (error) {
@@ -28,7 +31,10 @@ router.get("/:id", async (req, res) => {
 // Создать новую задачу
 router.post("/", async (req, res) => {
   try {
-    const newTask = await taskService.createTask(req.body);
+    const newTask = await taskService.createTask({
+      ...req.body,
+      user_id: req.user.id,
+    });
     res.status(201).json(newTask);
   } catch (error) {
     console.error(error);
@@ -39,7 +45,11 @@ router.post("/", async (req, res) => {
 // Обновить задачу по ID
 router.put("/:id", async (req, res) => {
   try {
-    const updated = await taskService.updateTask(req.params.id, req.body);
+    const updated = await taskService.updateTask(
+      req.params.id,
+      req.body,
+      req.user.id
+    );
     res.json(updated);
   } catch (error) {
     console.error(error);
@@ -50,7 +60,7 @@ router.put("/:id", async (req, res) => {
 // Удалить задачу по ID
 router.delete("/:id", async (req, res) => {
   try {
-    await taskService.deleteTask(req.params.id);
+    await taskService.deleteTask(req.params.id, req.user.id);
     res.status(204).end();
   } catch (error) {
     console.error(error);
