@@ -9,15 +9,11 @@ import type { Task } from "./TaskCard";
 import { useNavigate } from "react-router-dom";
 
 export function TaskForm() {
-  // const [title, setTitle] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [deadline, setDeadline] = useState("");
-  // const [status, setStatus] = useState("open");
   const [task, setTask] = useState<Task>({
     title: "",
     description: "",
     deadline: "",
-    status: "open",
+    status: "открыта",
     id: 0, // временно, если создаём новую задачу
   });
 
@@ -44,6 +40,13 @@ export function TaskForm() {
       await updateTask({ ...task });
     } else {
       await createTask(task);
+      setTask({
+        title: "",
+        description: "",
+        deadline: "",
+        status: "open",
+        id: 0,
+      });
     }
 
     navigate("/");
@@ -56,29 +59,10 @@ export function TaskForm() {
         description: taskData.description,
         deadline: taskData.deadline,
         status: taskData.status,
-        id: taskData.id, // Add this line
+        id: taskData.id,
       });
     }
   }, [taskData]);
-
-  // Обработка отправки задачи
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  //   // Валидация
-  //   if (!title.trim()) return alert("Название задачи обязательно");
-
-  //   // Отправка данных на сервер
-  //   await createTask({
-  //     title,
-  //     description,
-  //     deadline,
-  //   });
-  //   // Очистка формы
-  //   setTitle("");
-  //   setDescription("");
-  //   setDeadline("");
-  // };
 
   return (
     <form
@@ -111,19 +95,20 @@ export function TaskForm() {
         value={task.deadline}
         onChange={(e) => setTask({ ...task, deadline: e.target.value })}
       />
-      {/* <select
+
+      <label className="text-sm font-medium">Статус задачи:</label>
+      <select
         className="border p-2 rounded"
-        value={status}
-        onChange={(e) => setStatus(e.target.value)}
+        value={task.status}
+        onChange={(e) => setTask({ ...task, status: e.target.value })}
       >
         <option value="open">Открыта</option>
-        <option value="in_progress">В работе</option>
+        <option value="in_progress">В процессе</option>
         <option value="done">Завершена</option>
-      </select> */}
+      </select>
 
       {/* Кнопка отправки */}
       <button
-        // className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
         className="bg-blue-500 text-white p-2 rounded hover:bg-blue-700 transition-colors duration-300"
         type="submit"
         disabled={isLoading}

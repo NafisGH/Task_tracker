@@ -25,19 +25,19 @@ export function TaskCard({ task }: { task: Task }) {
       <p className="text-sm">
         📅 {new Date(task.deadline).toLocaleDateString()}
       </p>
-      <p className="text-sm font-semibold">Статус: {task.status}</p>
+      <p className="text-sm font-semibold">Status: {task.status}</p>
       <button
         className="mt-2 text-sm text-red-600 hover:underline"
         onClick={handleDelete}
         disabled={isLoading}
       >
-        Удалить
+        🗑️ Delete
       </button>
       <Link
         to={`/edit/${task.id}`}
         className="text-sm text-blue-600 hover:underline"
       >
-        ✏️ Редактировать
+        ✏️ Edit task
       </Link>
     </div>
   );
