@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,6 +19,7 @@ export default function LoginPage() {
 
     if (res.ok) {
       localStorage.setItem("token", data.token);
+      navigate("/");
       alert("Успешный вход!");
     } else {
       alert(data.message || "Ошибка входа");
@@ -28,6 +31,7 @@ export default function LoginPage() {
       onSubmit={handleLogin}
       className="max-w-md mx-auto mt-10 flex flex-col gap-4 bg-white p-6 shadow"
     >
+      <h2 className="text-xl font-bold">Авторизация</h2>
       <input
         type="text"
         placeholder="Имя пользователя"
@@ -45,6 +49,12 @@ export default function LoginPage() {
       <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
         Войти
       </button>
+      <p className="text-sm">
+        Нет аккаунта?
+        <Link to="/register" className="text-blue-600 hover:underline ml-3">
+          Зарегистрироваться
+        </Link>
+      </p>
     </form>
   );
 }

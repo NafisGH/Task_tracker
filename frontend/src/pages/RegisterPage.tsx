@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +19,7 @@ export default function RegisterPage() {
 
     if (res.ok) {
       alert("Успешно зарегистрирован! Теперь войдите.");
-      window.location.href = "/login";
+      navigate("/login");
     } else {
       alert(data.message || "Ошибка регистрации");
     }
@@ -46,6 +48,9 @@ export default function RegisterPage() {
       <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
         Зарегистрироваться
       </button>
+      <Link to="/login" className="text-blue-600 hover:underline ml-3">
+        Авторизация
+      </Link>
     </form>
   );
 }

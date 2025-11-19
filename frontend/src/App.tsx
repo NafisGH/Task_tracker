@@ -4,16 +4,41 @@ import TasksPage from "./pages/TasksPage";
 import { TaskForm } from "./components/TaskForm";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+import { PrivateRoute } from "./components/PrivateRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<TasksPage />} />
-        <Route path="/new" element={<TaskForm />} />
-        <Route path="/edit/:id" element={<TaskForm />} />
-        <Route path="/register" element={<RegisterPage />} />
+        {/* Открытые маршруты */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+
+        {/* Приватные маршруты */}
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <TasksPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/new"
+          element={
+            <PrivateRoute>
+              <TaskForm />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/edit/:id"
+          element={
+            <PrivateRoute>
+              <TaskForm />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
