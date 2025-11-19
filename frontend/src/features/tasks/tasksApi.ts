@@ -6,6 +6,13 @@ export const tasksApi = createApi({
   reducerPath: "tasksApi", // имя под-редюсера в store
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:4000/api", // корень всех запросов
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
 
   tagTypes: ["Task"], // теги для автоматического обновления кэша
@@ -26,6 +33,10 @@ export const tasksApi = createApi({
       query: (newTask) => ({
         url: "/tasks",
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         body: newTask,
       }),
       invalidatesTags: ["Task"], // обновляем кэш после создания

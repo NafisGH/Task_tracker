@@ -21,18 +21,27 @@ router.post("/register", async (req, res) => {
 
 // Логин
 router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-  const user = await pool.query("SELECT * FROM users WHERE username = $1", [
-    username,
-  ]);
-  if (user.rows.length === 0) return res.status(401).json({ error: "Неверно" });
-  const match = await bcrypt.compare(password, user.rows[0].password);
-  if (!match) return res.status(401).json({ error: "Неверно" });
+  try {
+    const { username, password } = req.body;
+    const user = await pool.query("SELECT * FROM users WHERE username = $1", [
+      username,
+    ]);
 
-  const token = jwt.sign({ id: user.rows[0].id }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
-  });
+    if (user.rows.length === 0)
+      return res.status(401).json({ error: "Неверно" });
 
-  res.json({ token, username });
+    const match = await bcrypt.compare(password, user.rows[0].password);
+    if (!match) return res.status(401).json({ error: "Неверно" });
+
+    const token = jwt.sign({ id: user.rows[0].id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+
+    res.json({ token, username });
+  } catch (err) {
+    console.error("Ошибка при логине:", err); // 👈 сюда
+    res.status(500).json({ error: "Ошибка сервера" });
+  }
 });
+
 module.exports = router;
