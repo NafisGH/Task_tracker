@@ -29,11 +29,12 @@ router.get("/:id", async (req, res) => {
 });
 
 // Создать новую задачу
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
+    const userId = req.user.id; // из токена
     const newTask = await taskService.createTask({
       ...req.body,
-      user_id: req.user.id,
+      user_id: userId,
     });
     res.status(201).json(newTask);
   } catch (error) {

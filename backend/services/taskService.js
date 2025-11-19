@@ -13,10 +13,10 @@ async function getTaskById(id) {
 }
 
 // Создать новую задачу
-async function createTask({ title, description, status, deadline }) {
+async function createTask({ title, description, status, deadline, user_id }) {
   const result = await pool.query(
     "INSERT INTO tasks (title, description, status, deadline) VALUES ($1, $2, $3, $4) RETURNING *",
-    [title, description, status, deadline || null]
+    [title, description, status, deadline || null, user_id]
   );
   return result.rows[0];
 }
