@@ -5,7 +5,14 @@ import type { Task } from "../components/TaskCard";
 import { useState } from "react";
 
 export default function TasksPage() {
-  const { data: tasks, isLoading, error } = useGetTasksQuery();
+  const {
+    data: tasks,
+    isLoading,
+    error,
+  } = useGetTasksQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+    refetchOnReconnect: true,
+  });
   const [statusFilter, setStatusFilter] = useState("Все");
 
   if (isLoading) {
