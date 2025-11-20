@@ -15,6 +15,7 @@ export function TaskForm() {
     description: "",
     deadline: "",
     status: "",
+    priority: "medium",
     id: 0, // временно, если создаём новую задачу
   });
 
@@ -49,6 +50,7 @@ export function TaskForm() {
         description: "",
         deadline: "",
         status: "",
+        priority: "medium",
         id: 0,
       });
     }
@@ -63,6 +65,7 @@ export function TaskForm() {
         description: taskData.description,
         deadline: taskData.deadline,
         status: taskData.status,
+        priority: taskData.priority,
         id: taskData.id,
       });
     }
@@ -78,7 +81,7 @@ export function TaskForm() {
       <div className="flex items-center justify-between mb-3">
         {username && (
           <div className="">
-            Пользователь: <span className="text-blue-600">{username}</span>
+            User name: <span className="text-blue-600">{username}</span>
           </div>
         )}
 
@@ -87,7 +90,7 @@ export function TaskForm() {
             onClick={handleLogout}
             className="text-sm text-red-600 hover:underline"
           >
-            Выйти
+            log out
           </button>
         </div>
       </div>
@@ -131,8 +134,19 @@ export function TaskForm() {
         >
           <option value=""></option>
           <option value="open">open</option>
-          <option value="in_progress">in progress</option>
+          <option value="in progress">in progress</option>
           <option value="done">done</option>
+        </select>
+        {/* Приоритет задачи */}
+        <label className="text-sm font-medium">Priority:</label>
+        <select
+          className="border p-2 rounded"
+          value={task.priority}
+          onChange={(e) => setTask({ ...task, priority: e.target.value })}
+        >
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
         </select>
 
         {/* Кнопка отправки */}

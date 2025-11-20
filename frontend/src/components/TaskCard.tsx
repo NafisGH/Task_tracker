@@ -7,6 +7,7 @@ export type Task = {
   description: string;
   status: string;
   deadline: string;
+  priority: string;
 };
 
 export function TaskCard({ task }: { task: Task }) {
@@ -32,8 +33,18 @@ export function TaskCard({ task }: { task: Task }) {
         📅 {new Date(task.deadline).toLocaleDateString()}
       </p>
       <p className="text-sm font-semibold">Status: {task.status}</p>
+      <p
+        className={`text-sm font-semibold ${
+          task.priority === "high"
+            ? "text-red-600"
+            : task.priority === "medium"
+            ? "text-yellow-600"
+            : "text-green-600"
+        }`}
+      >
+        Priority: {task.priority}
+      </p>
       <button
-        // className="mt-2 text-sm text-red-600 hover:underline text-left"
         className="w-1/3 px-4 py-1 border border-red-500 rounded-lg hover:bg-red-50 text-left"
         onClick={handleDelete}
         disabled={isLoading}

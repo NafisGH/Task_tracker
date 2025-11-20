@@ -30,26 +30,26 @@ export default function RegisterPage() {
       onSubmit={handleRegister}
       className="max-w-md mx-auto mt-10 flex flex-col gap-4 bg-white p-6 shadow"
     >
-      <h2 className="text-xl font-bold">Регистрация</h2>
+      <h2 className="text-xl font-bold">Join</h2>
       <input
         type="text"
-        placeholder="Имя пользователя"
+        placeholder="email"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         className="border p-2 rounded"
       />
       <input
         type="password"
-        placeholder="Пароль"
+        placeholder="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         className="border p-2 rounded"
       />
       <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
-        Зарегистрироваться
+        Join
       </button>
       <Link to="/login" className="text-blue-600 hover:underline ml-3">
-        Авторизация
+        Log in
       </Link>
     </form>
   );
