@@ -31,7 +31,6 @@ export function TaskForm() {
   // Мутация для создания задачи
   const [createTask, { isLoading }] = useCreateTaskMutation();
   const [updateTask] = useUpdateTaskMutation();
-  // const isLoading = isLoading || isLoading;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +40,6 @@ export function TaskForm() {
     if (!task.deadline.trim()) return alert("deadline required");
 
     if (isEdit) {
-      console.log("task", task);
       await updateTask({ ...task });
     } else {
       await createTask(task);
