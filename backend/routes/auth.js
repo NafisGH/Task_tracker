@@ -13,7 +13,7 @@ router.post("/register", async (req, res) => {
       "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id, username",
       [username, hashed]
     );
-    res.status(201).json(user.rows[0]);
+    res.status(201).json({ username: user.rows[0].username });
   } catch (err) {
     res.status(400).json({ error: "Пользователь уже существует" });
   }
@@ -39,7 +39,7 @@ router.post("/login", async (req, res) => {
 
     res.json({ token, username });
   } catch (err) {
-    console.error("Ошибка при логине:", err); // 👈 сюда
+    console.error("Ошибка при логине:", err);
     res.status(500).json({ error: "Ошибка сервера" });
   }
 });

@@ -19,6 +19,7 @@ export default function LoginPage() {
 
     if (res.ok) {
       localStorage.setItem("token", data.token);
+      localStorage.setItem("username", data.username);
       navigate("/");
       alert("Успешный вход!");
     } else {

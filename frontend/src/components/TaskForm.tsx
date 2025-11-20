@@ -7,6 +7,7 @@ import {
 import { useParams } from "react-router-dom";
 import type { Task } from "./TaskCard";
 import { useNavigate } from "react-router-dom";
+import { useAuthUser } from "../../hooks/useAuthUser";
 
 export function TaskForm() {
   const [task, setTask] = useState<Task>({
@@ -20,6 +21,7 @@ export function TaskForm() {
   const { id } = useParams<{ id: string }>();
   const isEdit = Boolean(id);
   const navigate = useNavigate();
+  const username = useAuthUser();
 
   // Получение задачи по id при редактировании
   const { data: taskData } = useGetTaskByIdQuery(id!, {
@@ -73,14 +75,23 @@ export function TaskForm() {
 
   return (
     <>
-      <div className="flex justify-end mb-4">
-        <button
-          onClick={handleLogout}
-          className="text-sm text-red-600 hover:underline"
-        >
-          Выйти
-        </button>
+      <div className="flex items-center justify-between mb-3">
+        {username && (
+          <div className="">
+            Пользователь: <span className="text-blue-600">{username}</span>
+          </div>
+        )}
+
+        <div className="">
+          <button
+            onClick={handleLogout}
+            className="text-sm text-red-600 hover:underline"
+          >
+            Выйти
+          </button>
+        </div>
       </div>
+
       <form
         onSubmit={handleSubmit}
         className="bg-white p-4 shadow flex flex-col gap-2"
